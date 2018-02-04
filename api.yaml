@@ -1,0 +1,524 @@
+swagger: "2.0"
+info:
+  description: "天际私厨API."
+  version: "1.0.0"
+  title: "天际私厨API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "kding1990@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/api"
+tags:
+- name: "global"
+  description: "全局配置"
+- name: "receipts"
+  description: "食谱"
+- name: "products"
+  description: "产品"
+- name: "news"
+  description: "资讯"
+- name: "manual"
+  description: "说明书"
+- name: "user"
+  description: "我"
+schemes:
+- "http"
+paths:
+  /global/menus:
+    get:
+      tags:
+      - "global"
+      summary: "全局菜单，即底部导航栏"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+            - name: 食谱
+              code: receipt
+              icon: http://url.for.icon
+              icon_active: http://url.for.icon
+            - name: 产品
+              code: product
+              icon: http://url.for.icon
+              icon_active: http://url.for.icon
+            - name: 资讯
+              code: news
+              icon: http://url.for.icon
+              icon_active: http://url.for.icon
+            - name: 说明书
+              code: manual
+              icon: http://url.for.icon
+              icon_active: http://url.for.icon
+            - name: 我
+              code: me
+              icon: http://url.for.icon
+              icon_active: http://url.for.icon
+  /receipts:
+    get:
+      tags:
+      - "receipts"
+      summary: "获取所有食谱"
+      produces:
+      - "application/json"
+      parameters:
+      - name: page
+        type: integer
+        in: query
+        description: 分页，从1开始
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              page: 1
+              size: 2
+              hasNext: false
+              data:
+                - id: 1
+                  title: 标题
+                  summary: 描述
+                  picture: http://url.to.resouce
+                  video: http://url.to.resouce
+                - id: 2
+                  title: 标题
+                  summary: 描述
+                  picture: http://url.to.resouce
+                  video: http://url.to.resouce
+  /receipts/{id}:
+    get:
+      tags:
+      - "receipts"
+      summary: "获取食谱详情"
+      produces:
+      - "application/json"
+      parameters:
+      - name: id
+        required: true
+        type: integer
+        in: path
+        description: 食谱id
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              title: 标题
+              summary: 描述
+              materials:
+                - name: 材料1
+                  amount: 用量
+                - name: 材料2
+                  amount: 用量
+                - name: 材料3
+                  amount: 用量
+                - name: 材料4
+                  amount: 用量
+              steps: 
+                - 步骤1
+                - 步骤2
+                - 步骤3
+              value: 价值
+              tags:
+                - 标签1
+                - 标签2
+                - 标签3
+              picture: http://url.to.resouce
+              video: http://url.to.resouce
+        404:
+          description: "找不到食谱"
+  /receipts/hot:
+    get:
+      tags:
+      - "receipts"
+      summary: "热门食谱"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              - title: 标题
+                summary: 描述
+                stars: 100
+                picture: http://url.to.resouce
+                video: http://url.to.resouce
+              - title: 标题
+                summary: 描述
+                stars: 100
+                picture: http://url.to.resouce
+                video: http://url.to.resouce
+  /receipts/tasty:
+    get:
+      tags:
+      - "receipts"
+      summary: "美味天下"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              - title: 标题
+                summary: 描述
+                stars: 100
+                picture: http://url.to.resouce
+                video: http://url.to.resouce
+              - title: 标题
+                summary: 描述
+                stars: 100
+                picture: http://url.to.resouce
+                video: http://url.to.resouce
+  /receipts/categories:
+    get:
+      tags:
+      - "receipts"
+      summary: "食谱分类"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              -
+                id: 1
+                name: 名称
+                isProduct: false
+                icon: http://url.for.icon
+              -
+                id: 2
+                name: 名称
+                isProduct: false
+                icon: http://url.for.icon
+              -
+                id: 3
+                name: 名称
+                isProduct: false
+                icon: http://url.for.icon
+              -
+                id: 4
+                name: 名称
+                isProduct: true
+                icon: http://url.for.icon
+  /receipts/categories/{id}:
+    get:
+      tags:
+      - "receipts"
+      summary: "根据分类id获取食谱"
+      produces:
+      - "application/json"
+      parameters:
+      - name: id
+        required: true
+        type: integer
+        in: path
+        description: 分类id
+      - name: page
+        in: query
+        type: integer
+        description: 分页，从1开始
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              page: 1
+              size: 2
+              hasNext: false
+              data:
+                - id: 1
+                  title: 标题
+                  summary: 描述
+                  picture: http://url.to.resouce
+                  video: http://url.to.resouce
+                - id: 2
+                  title: 标题
+                  summary: 描述
+                  picture: http://url.to.resouce
+                  video: http://url.to.resouce
+  /receipts/search:
+    get:
+      tags:
+      - "receipts"
+      summary: "搜索食谱"
+      produces:
+      - "application/json"
+      parameters:
+      - name: keyword
+        required: true
+        type: integer
+        in: query
+        description: 关键词
+      - name: page
+        type: integer
+        in: query
+        description: 第n页，默认1
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              - page: 1
+                size: 2
+                hasNext: false
+                data:
+                - id: 1
+                  title: 标题
+                  summary: 描述
+                  picture: http://url.to.resouce
+                  video: http://url.to.resouce
+                - id: 2
+                  title: 标题
+                  summary: 描述
+                  picture: http://url.to.resouce
+                  video: http://url.to.resouce
+  /receipts/product/{id}:
+    get:
+      tags:
+      - "receipts"
+      summary: "产品食谱"
+      produces:
+      - "application/json"
+      parameters:
+      - name: id
+        required: true
+        type: integer
+        in: path
+        description: 分类id
+      - name: page
+        type: integer
+        in: query
+        description: 第n页，默认1
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              page: 1
+              size: 2
+              hasNext: false
+              data:
+                - title: 标题
+                  summary: 描述
+                  picture: http://url.to.resouce
+                  video: http://url.to.resouce
+                - title: 标题
+                  summary: 描述
+                  picture: http://url.to.resouce
+                  video: http://url.to.resouce
+  /products/categories:
+    get:
+      tags:
+      - "products"
+      summary: "产品目录"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              - id: 1
+                name: 类别1
+                icon: http://url.for.icon
+              - id: 2
+                name: 类别2
+                icon: http://url.for.icon
+              - id: 3
+                name: 类别3
+                icon: http://url.for.icon
+              - id: 4
+                name: 类别4
+                icon: http://url.for.icon
+  /products/ads:
+    get:
+      tags:
+      - "products"
+      summary: "产品广告"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              - id: 1
+                type: video
+                productId: 23
+                content: http://url.to.resouce
+              - id: 2
+                type: image
+                productId: 24
+                content: http://url.to.resouce
+  /products/categories/{id}:
+    get:
+      tags:
+      - "products"
+      summary: "根据分类id获取产品"
+      produces:
+      - "application/json"
+      parameters:
+      - name: id
+        required: true
+        type: integer
+        in: path
+        description: 分类id
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              page: 1
+              size: 2
+              hasNext: false
+              data:
+                - id: 1
+                  title: 标题
+                  summary: 描述
+                  picture: http://url.to.resouce
+                  video: http://url.to.resouce
+                - id: 2
+                  title: 标题
+                  summary: 描述
+                  picture: http://url.to.resouce
+                  video: http://url.to.resouce
+  /products/{id}:
+    get:
+      tags:
+      - "products"
+      summary: "获取产品详情"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        required: true
+        type: integer
+        in: "path"
+        description: "产品id"
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              id: 1
+              title: 标题
+              summary: 描述
+              picture: http://url.to.resouce
+              video: http://url.to.resouce
+        404:
+          description: "Product not found"
+  /news/categories:
+    get:
+      tags:
+      - "news"
+      summary: "资讯分类"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              - id: 1
+                name: 类别1
+                icon: http://url.for.icon
+              - id: 2
+                name: 类别2
+                icon: http://url.for.icon
+              - id: 3
+                name: 类别3
+                icon: http://url.for.icon
+              - id: 4
+                name: 类别4
+                icon: http://url.for.icon
+  /news/ads:
+    get:
+      tags:
+      - "news"
+      summary: "资讯广告"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              - id: 1
+                type: video
+                newsId: 23
+                content: http://url.to.resouce
+              - id: 2
+                type: image
+                newsId: 24
+                content: http://url.to.resouce
+  /news/categories/{id}:
+    get:
+      tags:
+      - "news"
+      summary: "根据分类id获取资讯"
+      produces:
+      - "application/json"
+      parameters:
+      - name: id
+        required: true
+        type: integer
+        in: path
+        description: 分类id
+      - name: page
+        type: integer
+        in: query
+        description: 分页
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              page: 1
+              size: 2
+              hasNext: false
+              data:
+                - id: 1
+                  title: 标题
+                  summary: 描述
+                  picture: http://url.to.resouce
+                  video: http://url.to.resouce
+                - id: 2
+                  title: 标题
+                  summary: 描述
+                  picture: http://url.to.resouce
+                  video: http://url.to.resouce
+  /news/{id}:
+    get:
+      tags:
+      - "news"
+      summary: "获取资讯详情"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        type: integer
+        in: "path"
+        description: "产品id"
+        required: true
+      responses:
+        200:
+          description: "successful operation"
+          examples:
+            application/json:
+              id: 1
+              title: 标题
+              summary: 描述
+              picture: http://url.to.resouce
+              video: http://url.to.resouce
+        404:
+          description: "Product not found"
+          
