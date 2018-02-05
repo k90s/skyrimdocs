@@ -59,6 +59,12 @@ paths:
               code: me
               icon: http://url.for.icon
               icon_active: http://url.for.icon
+        500:
+          description: "Internal Server Error"
+          examples:
+            application/json:
+              errcode: 50001
+              errmsg: "Error Message"
   /receipts:
     get:
       tags:
